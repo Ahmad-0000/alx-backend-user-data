@@ -25,9 +25,9 @@ def stats() -> str:
     stats['users'] = User.count()
     return jsonify(stats)
 
-@app_views.route("/views/index.py", methods=['GET'], strict_slashes=False)
+@app_views.route("/views/unauthorized", methods=['GET'], strict_slashes=False)
 def unauthorized():
-    """ GET api/v1/views/index.py
+    """ GET api/v1/views/unauthorized
     Returns:
         - 401
     """
