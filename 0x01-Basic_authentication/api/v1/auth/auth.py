@@ -8,10 +8,18 @@ from typing import List
 
 class Auth():
     """Authentication class"""
-    def require_auth(self, path: str, execlueded_paths: List[str]) -> bool:
-        """To be fully implemented later
+    def require_auth(self, path: str, execluded_paths: List[str]) -> bool:
+        """Checks if "path" endpoint requires authentication
         """
-        return False
+        if not path:
+            return True
+        if not execluded_paths:
+            return True
+        if not path.endswith('/'):
+            path += '/'
+        if path in execluded_paths:
+            return False
+        return True
 
     def authorization_header(self, r=None) -> None:
         """To be fully implemented later"""
