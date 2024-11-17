@@ -1,1 +1,1 @@
-# Basic Authentication
+# Simple Authentication
