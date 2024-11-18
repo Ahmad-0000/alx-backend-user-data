@@ -3,7 +3,7 @@
 Authentication module
 """
 from flask import request as r
-from typing import List
+from typing import List, Optional
 
 
 class Auth():
@@ -21,9 +21,14 @@ class Auth():
             return False
         return True
 
-    def authorization_header(self, r=None) -> None:
+    def authorization_header(self, r=None) -> Optional[dict]:
         """To be fully implemented later"""
-        return None
+        if not r:
+            return None
+        auth_header = r.headers.get("Authorization")
+        if not auth_header:
+            return None
+        return auth_header
 
     def current_user(self, r=None) -> None:
         """To be fully implemented later"""
