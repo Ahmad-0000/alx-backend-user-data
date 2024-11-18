@@ -19,6 +19,12 @@ class Auth():
             path += '/'
         if path in execluded_paths:
             return False
+        else:
+            for p in execluded_paths:
+                if p.endswith("*"):
+                    p = p[:-1]
+                    if path.startswith(p):
+                        return False
         return True
 
     def authorization_header(self, r=None) -> Optional[dict]:
