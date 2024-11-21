@@ -32,4 +32,4 @@ class RedactingFormatter(logging.Formatter):
         """Formation and obfuscation"""
         record.msg = filter_datum(self.fields, '***', record.msg, ';')
         output = logging.Formatter.format(self, record)
-        return output 
+        return output
