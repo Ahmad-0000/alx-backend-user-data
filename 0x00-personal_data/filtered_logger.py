@@ -4,11 +4,10 @@ Obfuscation
 """
 import re
 import logging
-from typing import List, Iterable
+from typing import List
 
 
-
-def filter_datum(fields: Iterable[str], redaction: str,
+def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Obfuscation 'fileds' values in 'message'"""
     for field in fields:
@@ -25,7 +24,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: tuple):
+    def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
