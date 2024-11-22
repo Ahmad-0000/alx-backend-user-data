@@ -6,7 +6,7 @@ import re
 import logging
 from typing import List
 import os
-from MySQLdb.connectinos import Connection
+import MySQLdb
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password',)
@@ -33,13 +33,13 @@ def get_logger() -> logging.Logger:
     logger.addHandler(handler)
     return logger
 
-def get_db() -> Connection:
+def get_db() -> '.':
     """Returns a connection object to a database"""
     user = os.getenv('PERSONAL_DATA_DB_USERNAME', default='root')
     password = os.getenv('PERSONAL_DATA_DB_PASSWORD', default='')
     host = os.getenv('PERSONAL_DATA_DB_HOST', default='localhost')
     db = os.getenv('PERSONAL_DATA_DB_NAME')
-    return Connection(db=db, passwed=password, host=host, user=user, port=3306)
+    return MySQLdb.connect(db=db, passwed=password, host=host, user=user, port=3306)
 
 
 class RedactingFormatter(logging.Formatter):
