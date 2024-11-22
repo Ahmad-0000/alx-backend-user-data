@@ -33,7 +33,7 @@ def get_logger() -> logging.Logger:
     logger.addHandler(handler)
     return logger
 
-def get_db() -> '<class mysql.connector.connection.MySQLConnection>':
+def get_db() -> "<class 'mysql.connector.connection.MySQLConnection'>":
     """Returns a connection object to a database"""
     user = os.getenv('PERSONAL_DATA_DB_USERNAME', default='root')
     password = os.getenv('PERSONAL_DATA_DB_PASSWORD', default='')
