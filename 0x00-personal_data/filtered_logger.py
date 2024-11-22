@@ -6,7 +6,7 @@ import re
 import logging
 from typing import List
 import os
-# import MySQLdb
+import MySQLdb
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password',)
