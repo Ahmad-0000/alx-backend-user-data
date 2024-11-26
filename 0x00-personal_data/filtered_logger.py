@@ -12,6 +12,37 @@ import MySQLdb
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password',)
 
 
+def main():
+    """Main function
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    str_row = ""
+    fields = {
+            0: "name",
+            1: "email",
+            2: "phone",
+            3: "ssn",
+            4: "password",
+            5: "ip",
+            6: "last_login",
+            7: "user_agent",
+        }
+    obfuscated = ["name", "email", "phone", "ssn", "password"]
+    for row in cursor.fetchall():
+        i = 0
+        while i < 8:
+            str_row += " " + fields[i] + "=" + str(row[i]) + ";"
+            i += 1
+        str_row = str_row[1:]
+        record = logging.LogRecord("user_data", logging.INFO, None, None, str_row, None, None)
+        formatter = RedactingFormatter(obfuscated)
+        print(formatter.format(record))
+    cursor.close()
+    db.close()
+        
+
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Obfuscation 'fileds' values in 'message'"""
@@ -62,3 +93,6 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, '***', record.msg, ';')
         output = logging.Formatter.format(self, record)
         return output
+
+if __name__ == "__main__":
+    main()
