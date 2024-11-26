@@ -35,21 +35,19 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> "<class 'mysql.connector.connection.MySQLConnection'>":
-    """Returns a connection object to a database"""
+    """Returns a connection object to a database
+    """
     user = os.getenv('PERSONAL_DATA_DB_USERNAME', default='root')
     password = os.getenv('PERSONAL_DATA_DB_PASSWORD', default='')
     host = os.getenv('PERSONAL_DATA_DB_HOST', default='localhost')
     db = os.getenv('PERSONAL_DATA_DB_NAME')
-    return MySQLdb.connect(user=user,
-                           passwd=password,
-                           db=db,
-                           host=host,
-                           port=3306)
+    return MySQLdb.connect(
+            user=user, passwd=password, db=db, host=host, port=3306)
 
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
-        """
+    """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
