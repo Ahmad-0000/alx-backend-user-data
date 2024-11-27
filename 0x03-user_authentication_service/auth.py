@@ -62,30 +62,30 @@ class Auth:
             self._db.update_user(u.id, session_id=session_id)
             return session_id
         except NoResultFound:
-            return None
+            pass
 
     def get_user_by_session_id(self, session_id: str) -> user.User:
         """Returns a user acccount object by session id
         """
         if not session_id:
-            return None
+            return
         try:
             u = self._db.find_user_by(session_id=session_id)
             return u
         except NoResultFound:
-            return None
+            pass
 
     def destroy_session(self, user_id: str) -> None:
         """Destroys a user session
         """
         if not user_id:
-            return None
+            return
         try:
             u = self._db.find_user_by(id=user_id)
             setattr(u, "session_id", None)
             None
         except NoResultFound:
-            return None
+            pass
 
     def get_reset_password_token(self, email: str) -> str:
         """Generates a token
@@ -94,8 +94,8 @@ class Auth:
             raise ValueError('User DNE')
         try:
             u = self._db.find_user_by(email=email)
-            token = str(uuid.uuid4())
-            self._db.update_user(u.id, reset_token=token)
-            return token
         except NoResultFound:
             raise ValueError('User DNE')
+        token = str(uuid.uuid4())
+        self._db.update_user(u.id, reset_token=token)
+        return token
