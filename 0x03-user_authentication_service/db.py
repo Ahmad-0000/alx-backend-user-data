@@ -63,6 +63,6 @@ class DB:
         u = self.find_user_by(id=user_id)
         if u:
             for k, v in kwargs.items():
-                u.__dict__[k] = v
+                setattr(u, k, v)
             self._session.commit()
         return None
