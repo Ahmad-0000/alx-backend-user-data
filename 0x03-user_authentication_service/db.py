@@ -41,7 +41,7 @@ class DB:
         self._session.commit()
         return new
 
-    def find_user_by(self, **kwargs: dict) -> user.User:
+    def find_user_by(self, **kwargs) -> user.User:
         """Returns a user account object
         """
         try:
