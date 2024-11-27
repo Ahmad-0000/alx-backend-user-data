@@ -51,3 +51,18 @@ class DB:
         if not obj:
             raise NoResultFound
         return obj
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Updating a user account
+        """
+        attributes = ["id", "hashed_password", "email", "reset_token",
+                      "session_id"]
+        for k in kwargs:
+            if k not in attributes:
+                raise ValueError
+        u = self.find_user_by(id=user_id)
+        if u:
+            for k, v in kwargs.items():
+                u.__dict__[k] = v
+            self._session.commit()
+        return None
