@@ -87,7 +87,7 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_resest_password_token(self, email: str) -> str:
+    def get_reset_password_token(self, email: str) -> str:
         """Generates a token
         """
         if not email:
