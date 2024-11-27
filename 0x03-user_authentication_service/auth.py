@@ -91,11 +91,11 @@ class Auth:
         """Generates a token
         """
         if not email:
-            raise ValueError
+            raise ValueError('User DNE')
         try:
             u = self._db.find_user_by(email=email)
             token = str(uuid.uuid4())
             self._db.update_user(u.id, reset_token=token)
             return token
         except NoResultFound:
-            raise ValueError
+            raise ValueError('User DNE')
